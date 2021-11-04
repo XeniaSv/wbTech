@@ -4,6 +4,7 @@ var sass = require('gulp-sass')(require('sass'));
 var autoprefixer = require('gulp-autoprefixer');
 var sourcemaps = require('gulp-sourcemaps');
 var browserSync = require('browser-sync').create();
+var ghPages = require('gulp-gh-pages');
 
 function css_style(done){
   gulp.src('./scss/**/*.scss')
@@ -48,3 +49,8 @@ function watchFiles() {
 }
 
 gulp.task('default', gulp.parallel(sync, watchFiles));
+
+gulp.task('deploy', function() {
+  return gulp.src('./build/**/*')
+    .pipe(ghPages());
+});
