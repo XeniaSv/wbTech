@@ -11,6 +11,7 @@ async function onClick_switchNight() {
         document.getElementById('main__img').src = '/img/main-picture-night.png';
         document.getElementById('main__interier-image').style.display = "none";
     }
+    
     else
         alert("Sorry this lamp doesn't have night mode");
 }
