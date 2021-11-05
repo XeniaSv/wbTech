@@ -22,6 +22,7 @@
     "sass": "^1.43.3"
   },
   "dependencies": {
+    "gift": "^0.10.2",
     "node-sass": "^6.0.1"
   }
 }
