@@ -207,4 +207,3 @@
 }).call(this);
 ```
 Данная проблема связана с тем, что в `gulp-gh-pages` используется старая версия библиотеки `gift`.
-* После запуска команды `gulp deploy` страница в Github pages не всегда загружает png файлы. Выдается ошибка `Failed to load resource: the server responded with a status of 404 ()`. Данная проблема лечится путем пуша пустого коммита в ветку `gh-pages`.
