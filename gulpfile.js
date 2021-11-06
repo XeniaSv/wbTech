@@ -6,6 +6,8 @@ var sourcemaps = require('gulp-sourcemaps');
 var browserSync = require('browser-sync').create();
 var ghPages = require('gulp-gh-pages');
 var concat = require('gulp-concat');
+var replace = require('gulp-string-replace');
+
 
 function css_style(done){
   gulp.src('./scss/**/*.scss')
@@ -44,6 +46,8 @@ function img(done){
 
 function html(done){
   return gulp.src('./index.html')
+  .pipe(replace(/build\/css\/style.min.css/g, 'css/style.min.css'))
+  .pipe(replace(/build\/js\/scripts.js/g, 'js/scripts.js'))
   .pipe(gulp.dest('./build/'))
   .pipe(browserSync.stream());
   done();
