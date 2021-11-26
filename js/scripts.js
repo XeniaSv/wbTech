@@ -1,9 +1,9 @@
-function onClick_switchDay() {
+function onClick_switchDay(event) {
     document.getElementById('main__img').src = 'img/mainPicture.png';
     document.getElementById('main__interier-image').style.display = "block";
 }
 
-async function onClick_switchNight() {
+async function onClick_switchNight(event) {
     let selectedLamp = localStorage.getItem('selectedLamp');
     let data = await JSON.parse(localStorage.getItem(selectedLamp));
     if (data.isDarkMode === true)
@@ -27,22 +27,25 @@ async function getLampsInformation() {
     throw new Error("Wrong request");
 }
 
-async function onClick_Lamp(lampId) {
+async function onClick_Lamp(event) {
+    let lampId = event.currentTarget.id;
+
+    setAndClearStyleLamps(lampId);
     let data = await JSON.parse(localStorage.getItem(lampId));
     localStorage.setItem('selectedLamp', lampId);
-
+    
     let catalogInfo = document.getElementById('catalog__info');
     catalogInfo.innerHTML = '';
 
     let templateInfoLamp = document.getElementById('lamp_info');
 
-    let indicators = templateInfoLamp.content.querySelectorAll('#indicator');
+    let indicators = templateInfoLamp.content.querySelectorAll('.indicator');
     indicators[0].textContent = data.material;
     indicators[1].innerHTML = `H ${data.height} &#215; W ${data.width}`;
     indicators[2].textContent = `${data.weight} Kg`;
     indicators[3].textContent = data.electrification;
 
-    let clone = document.importNode(templateInfoLamp.content, true);
+    let clone = templateInfoLamp.content.cloneNode(true);
     catalogInfo.append(clone);
 
     fillImages(data.image);
@@ -60,7 +63,7 @@ function fillCatalogImage(image) {
 
     let templateCatalogImage = document.getElementById('image-lamp-in-catalog');
     templateCatalogImage.content.getElementById('catalog__image').src = image;
-    let clone = document.importNode(templateCatalogImage.content, true);
+    let clone = templateCatalogImage.content.cloneNode(true);
     catalogImageDiv.append(clone);
 }
 
@@ -70,8 +73,18 @@ function fillInterierImage(image) {
 
     let templteInterierImage = document.getElementById('image-lamp-interier');
     templteInterierImage.content.getElementById('interier-img').src = image;
-    let clone = document.importNode(templteInterierImage.content, true);
+    let clone = templteInterierImage.content.cloneNode(true);
     interierImageDiv.append(clone);
+}
+
+function setAndClearStyleLamps(lampId) {
+    let selectedLamp = document.getElementById(lampId);
+    selectedLamp.classList.add('catalog__selected_item');
+    let lamps = document.querySelectorAll('.catalog__item');
+    lamps.forEach(lamp => {
+        if (lamp.id != lampId)
+            lamp.classList.remove('catalog__selected_item')
+    })
 }
 
 function printScrollbar(data) {
@@ -83,20 +96,22 @@ function printScrollbar(data) {
         templateLampScrollbar.content.querySelector('.catalog__item').id = element.id;
         templateLampScrollbar.content.getElementById('image-scrollbar').src = element.image;
 
-        let clone = document.importNode(templateLampScrollbar.content, true);
+        let clone = templateLampScrollbar.content.cloneNode(true);
         scrollbar.append(clone);
+        scrollbar.lastElementChild.addEventListener('click', onClick_Lamp);
     });
 }
 window.onload = function () {
     let success = (data) => {
         fillLocalStorage(data);
         printScrollbar(data);
-        onClick_Lamp(1);
+        document.getElementById(1).click();
     }
 
     let fail = (error) => {
         console.log(error);
     }
+    addEventsToSwitchButtons();
     getLampsInformation().then(success).catch(fail);
 }
 
@@ -106,4 +121,12 @@ function fillLocalStorage(data) {
     data.forEach(element => {
         localStorage.setItem(element.id, JSON.stringify(element));
     });
+}
+
+function addEventsToSwitchButtons() {
+    let dayButton = document.querySelector('.catalog__switch-day');
+    let nightButton = document.querySelector('.catalog__switch-night');
+
+    dayButton.addEventListener('click', onClick_switchDay);
+    nightButton.addEventListener('click', onClick_switchNight);
 }
