@@ -19,7 +19,7 @@
     "gulp-rename": "^2.0.0",
     "gulp-sass": "^5.0.0",
     "gulp-sourcemaps": "^3.0.0",
-    "sass": "^1.43.3"
+    "sass": "^1.43.4"
   },
   "dependencies": {
     "gift": "^0.10.2",

@@ -7,7 +7,8 @@ function printScrollbar(data) {
         templateLampScrollbar.content.querySelector('.catalog__item').id = element.id;
         templateLampScrollbar.content.getElementById('image-scrollbar').src = element.image;
 
-        let clone = document.importNode(templateLampScrollbar.content, true);
+        let clone = templateLampScrollbar.content.cloneNode(true);
         scrollbar.append(clone);
+        scrollbar.lastElementChild.addEventListener('click', onClick_Lamp);
     });
 }

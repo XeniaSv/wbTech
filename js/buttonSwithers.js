@@ -1,9 +1,9 @@
-function onClick_switchDay() {
+function onClick_switchDay(event) {
     document.getElementById('main__img').src = 'img/mainPicture.png';
     document.getElementById('main__interier-image').style.display = "block";
 }
 
-async function onClick_switchNight() {
+async function onClick_switchNight(event) {
     let selectedLamp = localStorage.getItem('selectedLamp');
     let data = await JSON.parse(localStorage.getItem(selectedLamp));
     if (data.isDarkMode === true)

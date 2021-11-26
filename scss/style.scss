@@ -133,7 +133,7 @@ hr {
         }
         &::-webkit-scrollbar-thumb {
             border-radius: 10px; 
-            background-color: #719b9b;                ;
+            background-color: #719b9b;
         }
 
         &::-webkit-scrollbar-track {
@@ -149,6 +149,13 @@ hr {
         &:hover{
             background-color: #FFFFFF;
         }   
+    }
+
+    &__selected_item {
+        display: none;
+        justify-self: center;
+        border-radius: 10px;
+        background: #FFFFFF;
     }
 
     &__switch{
