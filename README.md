@@ -1,7 +1,5 @@
 # wbTech
 ## Описание
-Тестовое задание на стажировку в [WbTech](https://wbtech.ru/).
-
 В проекте есть 2 ветки:
 * master - основна ветка разработки
 * gh-pages - ветка деплоя для Github pages (использовался плагин [gulp-gh-pages](https://www.npmjs.com/package/gulp-gh-pages)).
